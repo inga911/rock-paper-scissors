@@ -37,16 +37,6 @@ function GameComponent({ hand }) {
     }, 1000);
   }
 
-  function playGame() {
-    if (hand === "") {
-      return setMessage("Plese choose your hand");
-    }
-    setTimeout(() => {
-      gameLogic();
-      resetGame();
-    }, 200);
-  }
-
   function gameLogic() {
     let result;
     if (computerHand === hand) {
@@ -64,15 +54,26 @@ function GameComponent({ hand }) {
       result = "player";
       setMessage("You won!");
       addPlayerResult();
-      playedGame({ playerHand: hand, computerHand, result });
     }
+    playedGame({ playerHand: hand, computerHand, result });
+  }
+
+  function playGame() {
+    if (hand === "") {
+      return setMessage("Please choose your hand");
+    }
+    setTimeout(() => {
+      gameLogic();
+      resetGame();
+    }, 200);
   }
 
   return (
     <div className="game-comp">
       <div className="game-result">
-        <span class="material-symbols-outlined">computer</span> {computerResult}{" "}
-        - {playerResult} <span class="material-symbols-outlined">person</span>
+        <span className="material-symbols-outlined">computer</span>{" "}
+        {computerResult} - {playerResult}{" "}
+        <span className="material-symbols-outlined">person</span>
         <span style={{ fontSize: "15px" }}>(round {game.length})</span>
       </div>
       <div className="top">
