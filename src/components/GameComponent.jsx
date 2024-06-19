@@ -22,13 +22,6 @@ function GameComponent({ hand }) {
     return hands[randomIndex];
   }
 
-  useEffect(() => {
-    if (hand) {
-      const randomHand = getRandomHand();
-      setComputerHand(randomHand);
-    }
-  }, [hand]);
-
   function resetGame() {
     setTimeout(() => {
       setComputerHand("");
@@ -62,11 +55,18 @@ function GameComponent({ hand }) {
     if (hand === "") {
       return setMessage("Please choose your hand");
     }
-    setTimeout(() => {
-      gameLogic();
-      resetGame();
-    }, 200);
+    const randomHand = getRandomHand();
+    setComputerHand(randomHand);
   }
+
+  useEffect(() => {
+    if (computerHand) {
+      setTimeout(() => {
+        gameLogic();
+        resetGame();
+      }, 200);
+    }
+  }, [computerHand]);
 
   return (
     <div className="game-comp">
